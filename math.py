@@ -91,7 +91,7 @@ class WinLossProjected:
         self.win_probability = all_probs
 
     @staticmethod
-    def all_events(self):
+    def all_events():
         sample_space = []
         for i in range(2):
             for j in range(2):
@@ -101,32 +101,14 @@ class WinLossProjected:
                             for n in range(2):
                                 for o in range(2):
                                     for p in range(2):
-                                        event = [{"points": bool(i)},
-                                                 {"assists": bool(j)},
-                                                 {"rebounds": bool(k)},
-                                                 {"blocks": bool(l)},
-                                                 {"steals": bool(m)},
-                                                 {"3pm": bool(n)},
-                                                 {"fg": bool(o)},
-                                                 {"ft": bool(p)}]
+                                        event = {"points": bool(i),
+                                                 "assists": bool(j),
+                                                 "rebounds": bool(k),
+                                                 "blocks": bool(l),
+                                                 "steals": bool(m),
+                                                 "3pm": bool(n),
+                                                 "fg": bool(o),
+                                                 "ft": bool(p)}
                                         sample_space.append(event)
         return sample_space
 
-# sample_one = []
-# sample_two = []
-# sample_three = []
-# sample_four = []
-# for i in range(30):
-#     sample_one.append(i * random.random())
-#     sample_two.append(i * random.random())
-#     sample_three.append(i * random.random())
-#     sample_four.append(i * random.random())
-#
-#
-# obi_toppin_per_game_blocks = GameProjected(sample_one)
-# immanuel_per_game_blocks = GameProjected(sample_two)
-# jayson_per_game_blocks = GameProjected(sample_three)
-# jaylen_per_game_blocks = GameProjected(sample_four)
-# owner_alex_projected = WeekProjected([obi_toppin_per_game_blocks, immanuel_per_game_blocks], 3)
-# owner_michael_projected = WeekProjected([jayson_per_game_blocks, jayson_per_game_blocks], 0)
-# print(Gaussian.prob_greater(owner_alex_projected, owner_michael_projected))
