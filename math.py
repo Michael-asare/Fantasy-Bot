@@ -1,12 +1,18 @@
 import statistics as stats
 
 
-class G:
+class Gaussian:
+
+    def __init__(self, mean, std_dev):
+        self.mean = mean
+        self.std_dev = std_dev
+
+
+class G(Gaussian):
 
     def __init__(self, past_games):
+        super().__init__(0, 1)
         self.past_games = past_games
-        self.mean = 0
-        self.std_dev = 1
         self.get_stats()
 
     def get_stats(self):
@@ -28,13 +34,12 @@ class G:
             self.std_dev = stats.stdev(self.past_games)
 
 
-class W:
+class W(Gaussian):
 
     def __init__(self, games_to_be_played, week_to_date):
+        super().__init__(0, 1)
         self.games = games_to_be_played
         self.offset = week_to_date
-        self.mean = 0
-        self.std_dev = 1
         self.sum_games()
 
     def sum_games(self):
