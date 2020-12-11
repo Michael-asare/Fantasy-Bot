@@ -65,6 +65,53 @@ class WeekProjected(Gaussian):
         self.std_dev = sum_variances**(1/2)
 
 
+class WinLossProjected:
+
+    def __init__(self, probs):
+        self.probs = probs
+        self.event_space = WinLossProjected.all_events()
+        self.win_probability = []
+        self.all_probabilities()
+
+    def chance_win(self, wins):
+        return self.win_probability[wins]
+
+    def all_probabilities(self):
+        all_probs = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for event in self.event_space:
+            event_wins = 0
+            event_prob = 1
+            for key in self.probs:
+                if event[key]:
+                    event_prob *= self.probs[key]
+                    event_wins += 1
+                else:
+                    event_prob *= 1 - self.probs[key]
+            all_probs[event_wins] += event_prob
+        self.win_probability = all_probs
+
+    @staticmethod
+    def all_events(self):
+        sample_space = []
+        for i in range(2):
+            for j in range(2):
+                for k in range(2):
+                    for l in range(2):
+                        for m in range(2):
+                            for n in range(2):
+                                for o in range(2):
+                                    for p in range(2):
+                                        event = [{"points": bool(i)},
+                                                 {"assists": bool(j)},
+                                                 {"rebounds": bool(k)},
+                                                 {"blocks": bool(l)},
+                                                 {"steals": bool(m)},
+                                                 {"3pm": bool(n)},
+                                                 {"fg": bool(o)},
+                                                 {"ft": bool(p)}]
+                                        sample_space.append(event)
+        return sample_space
+
 # sample_one = []
 # sample_two = []
 # sample_three = []
