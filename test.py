@@ -18,13 +18,13 @@ for i in range(0, 32, 2):
         michael_weekp.append(ms.WeekProjected([game_projections[i], game_projections[i + 1]], 0))
 
 prob_points = ms.Gaussian.prob_greater(alex_weekp[0], michael_weekp[0])
-prob_asts = ms.Guassian.prob_greater(alex_weekp[1], michael_weekp[1])
-prob_rebs = ms.Guassian.prob_greater(alex_weekp[2], michael_weekp[2])
-prob_steals = ms.Guassian.prob_greater(alex_weekp[3], michael_weekp[3])
-prob_blks = ms.Guassian.prob_greater(alex_weekp[4], michael_weekp[4])
-prob_3pm = ms.Guassian.prob_greater(alex_weekp[5], michael_weekp[5])
-prob_fg = ms.Guassian.prob_greater(alex_weekp[6], michael_weekp[6])
-prob_ft = ms.Guassian.prob_greater(alex_weekp[7], michael_weekp[7])
+prob_asts = ms.Gaussian.prob_greater(alex_weekp[1], michael_weekp[1])
+prob_rebs = ms.Gaussian.prob_greater(alex_weekp[2], michael_weekp[2])
+prob_steals = ms.Gaussian.prob_greater(alex_weekp[3], michael_weekp[3])
+prob_blks = ms.Gaussian.prob_greater(alex_weekp[4], michael_weekp[4])
+prob_3pm = ms.Gaussian.prob_greater(alex_weekp[5], michael_weekp[5])
+prob_fg = ms.Gaussian.prob_greater(alex_weekp[6], michael_weekp[6])
+prob_ft = ms.Gaussian.prob_greater(alex_weekp[7], michael_weekp[7])
 
 dict = {"points": prob_points,
         "assists": prob_asts,
