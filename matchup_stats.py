@@ -67,7 +67,7 @@ class WeekProjected(Gaussian):
 
 class WinLossProjected:
 
-    def __init__(self, probs):
+    def __init__(self, probs): # probs = {"points": 0.125, ,"assists": 0.125, ..., "ft": 0.125}
         self.probs = probs
         self.event_space = WinLossProjected.all_events()
         self.win_probability = []
@@ -78,7 +78,7 @@ class WinLossProjected:
 
     def all_probabilities(self):
         all_probs = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-        for event in self.event_space:
+        for event in self.event_space: # event = {"points": True, "assists": False, ..., "ft" : False} -> (0.125)*(1-0.125)*....*(1-0.125) = event probabilty
             event_wins = 0
             event_prob = 1
             for key in self.probs:

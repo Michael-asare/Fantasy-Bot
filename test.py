@@ -1,13 +1,14 @@
 import matchup_stats as ms
+import random as rand
 
-game_data = []
+cat_data = []
 game_projections = []
 for i in range(32):
-    game = []
+    thirty_game_cat_stats = []
     for j in range(30):
-        game.append((j - i)**2)
-    game_data.append(game)
-    game_projections.append(ms.GameProjected(game_data[i]))
+        thirty_game_cat_stats.append(i * j)
+    cat_data.append(thirty_game_cat_stats)
+    game_projections.append(ms.GameProjected(cat_data[i]))
 
 alex_weekp = []
 michael_weekp = []
