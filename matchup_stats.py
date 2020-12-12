@@ -23,11 +23,10 @@ class Gaussian(Distribution):
     def __init__(self, mean, std_dev):
         super.__init__(mean, std_dev)
 
-    @staticmethod
-    def prob_greater(x, y):
+    def prob_greater_than_distribution(self, other):
         # w refers to x - y
-        w_mu = x.mean - y.mean
-        w_sigma_squared = x.std_dev**2 + y.std_dev**2
+        w_mu = self.mean - other.mean
+        w_sigma_squared = self.std_dev**2 + other.std_dev**2
         w_sigma = w_sigma_squared**(1/2)
         z_score = (0 - w_mu)/w_sigma
         probability = 1 - norm.cdf(z_score)

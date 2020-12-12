@@ -18,14 +18,14 @@ for i in range(0, 32, 2):
     else:
         michael_weekp.append(ms.WeekProjected([game_projections[i], game_projections[i + 1]], 0))
 
-prob_points = ms.Gaussian.prob_greater(alex_weekp[0], michael_weekp[0])
-prob_asts = ms.Gaussian.prob_greater(alex_weekp[1], michael_weekp[1])
-prob_rebs = ms.Gaussian.prob_greater(alex_weekp[2], michael_weekp[2])
-prob_steals = ms.Gaussian.prob_greater(alex_weekp[3], michael_weekp[3])
-prob_blks = ms.Gaussian.prob_greater(alex_weekp[4], michael_weekp[4])
-prob_3pm = ms.Gaussian.prob_greater(alex_weekp[5], michael_weekp[5])
-prob_fg = ms.Gaussian.prob_greater(alex_weekp[6], michael_weekp[6])
-prob_ft = ms.Gaussian.prob_greater(alex_weekp[7], michael_weekp[7])
+prob_points = alex_weekp[0].prob_greater_than_distribution(michael_weekp[0])
+prob_asts = alex_weekp[1].prob_greater_than_distribution(michael_weekp[1])
+prob_rebs = alex_weekp[2].prob_greater_than_distribution(michael_weekp[2])
+prob_steals = alex_weekp[3].prob_greater_than_distribution(michael_weekp[3])
+prob_blks = alex_weekp[4].prob_greater_than_distribution(michael_weekp[4])
+prob_3pm = alex_weekp[5].prob_greater_than_distribution(michael_weekp[5])
+prob_fg = alex_weekp[6].prob_greater_than_distribution(michael_weekp[6])
+prob_ft = alex_weekp[7].prob_greater_than_distribution(michael_weekp[7])
 
 dict = {"points": prob_points,
         "assists": prob_asts,
@@ -46,4 +46,4 @@ print(wL.win_probability)
 # jaylen_per_game_blocks = GameProjected(sample_four)
 # owner_alex_projected = WeekProjected([obi_toppin_per_game_blocks, immanuel_per_game_blocks], 3)
 # owner_michael_projected = WeekProjected([jayson_per_game_blocks, jayson_per_game_blocks], 0)
-# print(Gaussian.prob_greater(owner_alex_projected, owner_michael_projected))
+# print(Gaussian.prob_greater_than_distribution(owner_alex_projected, owner_michael_projected))
