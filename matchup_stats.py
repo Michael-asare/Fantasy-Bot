@@ -9,9 +9,11 @@ class Distribution:
         self.mean = mean
         self.std_dev = std_dev
 
+    @staticmethod
     def determine_mean(data):
         return sum(data)/len(data) if len(data) != 0 else None
 
+    @staticmethod
     def determine_std_dev(data):
         return stats.stdev(data) if len(data) != 0 else None
 
@@ -56,10 +58,10 @@ class GameProjected(Gaussian):
         self.s()
 
     def x_bar(self):
-        self.mean = self.determine_mean(self.past_games) # may return None
-            
+        self.mean = Distribution.determine_mean(self.past_games) # may return None
+
     def s(self):
-        self.std_dev = self.determine_std_dev(self.past_games) # may return None
+        self.std_dev = Distribution.determine_std_dev(self.past_games) # may return None
 
 
 class WeekProjected(Gaussian):
