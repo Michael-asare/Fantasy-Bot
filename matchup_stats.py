@@ -3,11 +3,23 @@ from scipy.stats import norm
 import random
 
 
-class Gaussian:
+class Distribution:
 
     def __init__(self, mean, std_dev):
         self.mean = mean
         self.std_dev = std_dev
+
+    def determine_mean(data):
+        return sum(data)/len(data) if len(data) != 0 else None
+
+    def determine_std_dev(data):
+        return stats.stdev(data) if len(data) != 0 else None
+
+
+class Gaussian(Distribution):
+
+    def __init__(self, mean, std_dev):
+        super.__init__(mean, std_dev)
 
     @staticmethod
     def prob_greater(x, y):
@@ -18,6 +30,18 @@ class Gaussian:
         z_score = (0 - w_mu)/w_sigma
         probability = 1 - norm.cdf(z_score)
         return probability
+
+    @staticmethod
+    def sum_random_variables(random_variables):
+        gaussian_sum_variable = Gaussian(0, 1)
+        for random_variable in random_variables:
+            gaussian_sum_variable.mean += random_variable.mean
+
+        sum_variances = 0
+        for random_variable in random_variables:
+            sum_variances += random_variable.std_dev**2
+        gaussian_sum_variable.std_dev = sum_variances**(1/2)
+        return gaussian_sum_variable
 
 
 class GameProjected(Gaussian):
@@ -32,18 +56,10 @@ class GameProjected(Gaussian):
         self.s()
 
     def x_bar(self):
-        if len(self.past_games) == 0:
-            # do something
-            self.mean = 0
-        else:
-            self.mean = sum(self.past_games)/len(self.past_games)
+        self.mean = self.determine_mean(self.past_games) # may return None
             
     def s(self):
-        if len(self.past_games) == 0:
-            # do something
-            self.std_dev = 1
-        else:
-            self.std_dev = stats.stdev(self.past_games)
+        self.std_dev = self.determine_std_dev(self.past_games) # may return None
 
 
 class WeekProjected(Gaussian):
@@ -55,14 +71,9 @@ class WeekProjected(Gaussian):
         self.sum_games()
 
     def sum_games(self):
-        for game in self.games:
-            self.mean += game.mean
-        self.mean += self.offset
-
-        sum_variances = 0
-        for game in self.games:
-            sum_variances += game.std_dev**2
-        self.std_dev = sum_variances**(1/2)
+        sum_random_variables = Gaussian.sum_random_variables(self.games)
+        self.mean = sum_random_variables.mean + self.offset
+        self.std_dev = sum_random_variables.std_dev
 
 
 class WinLossProjected:
