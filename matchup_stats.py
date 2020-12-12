@@ -23,14 +23,29 @@ class Gaussian(Distribution):
     def __init__(self, mean, std_dev):
         super.__init__(mean, std_dev)
 
+    def z_score(self, x):
+        return (x - self.mean)/self.std_dev
+
+    def prob_greater(self, x):
+        z_score = self.z_score(x)
+        probability = 1 - norm.cdf(z_score)
+        return probability
+
+    def prob_less(self, x):
+        z_score = self.z_score(x)
+        probability = norm.cdf(z_score)
+        return probability
+
+    def prob_in_range(self, x0, x1):
+        return self.prob_less(x1) - self.prob_less(x0)
+
     def prob_greater_than_distribution(self, other):
         # w refers to x - y
         w_mu = self.mean - other.mean
         w_sigma_squared = self.std_dev**2 + other.std_dev**2
         w_sigma = w_sigma_squared**(1/2)
-        z_score = (0 - w_mu)/w_sigma
-        probability = 1 - norm.cdf(z_score)
-        return probability
+        w = Gaussian(w_mu, w_sigma)
+        return w.prob_greater(0)
 
     @staticmethod
     def sum_random_variables(random_variables):
